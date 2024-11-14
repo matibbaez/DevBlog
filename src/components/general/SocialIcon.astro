@@ -1,0 +1,12 @@
+---
+import { Icon } from 'astro-icon'
+
+const { socialUrl=false, socialType } = Astro.props;
+---
+{socialUrl &&
+<li>
+    <a href={socialUrl} target="_blank" aria-label={socialType + "link"}>
+        <Icon name={socialType} class="w-auto h-[15px] transition-all duration-300 fill-devblog-primary/60 hover:fill-devblog-secondary dark:fill-devblog-accent dark:hover:fill-devblog-secondary" />
+    </a>
+</li>
+}
