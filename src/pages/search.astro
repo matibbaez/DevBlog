@@ -1,0 +1,130 @@
+---
+// Importa tus entradas del blog
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const blogEntries = await getCollection("blog");
+---
+
+<Base>
+  <section class="container mx-auto max-w-screen-lg px-7 py-10">
+    <h1 class="text-3xl font-bold mb-3 dark:text-white">Buscar artículos</h1>
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Escribe tu búsqueda..."
+      class="border border-gray-300 rounded-lg p-4 w-full mb-8"
+    />
+    
+    <ul id="postList" class="space-y-4 hidden">  {/* Inicialmente oculto */}
+      {blogEntries.map((post) => (
+        <li
+          data-title={post.data.title}
+          data-body={post.body.toLowerCase()}
+          class="post-item"
+        >
+          <a
+            href={`/blog/${post.slug}`}
+            class="post-title text-lg font-semibold dark:text-white hover:underline"
+            target="_blank"
+          ></a>
+          <p class="post-preview text-devblog-accent"></p>  {/* Aquí solo se mostrará la oración relevante */}
+        </li>
+      ))}
+    </ul>
+
+    <p id="noResults" class="dark:text-white hidden">No se encontraron resultados.</p>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const searchInput = document.getElementById("searchInput") as HTMLInputElement | null;
+        const postList = document.querySelector("#postList") as HTMLUListElement;
+        const noResults = document.getElementById("noResults");
+        const postItems = document.querySelectorAll(".post-item");
+
+        if (!searchInput || !postList || !noResults) {
+          console.error("Faltan elementos esenciales en el DOM.");
+          return;
+        }
+
+        // Ocultar la lista hasta que haya una búsqueda
+        postList.style.display = "none";
+
+        // Listener de búsqueda
+        searchInput.addEventListener("input", () => {
+          const query = searchInput.value.toLowerCase().trim();
+          let found = false;
+
+          // Iterar sobre todos los elementos de post
+          postItems.forEach((post) => {
+            const postElement = post as HTMLElement;  // Aseguramos que es un HTMLElement
+            const title = postElement.dataset.title || "";
+            const body = postElement.dataset.body || "";
+            
+            // Buscar coincidencias en el título o el cuerpo
+            if (title.includes(query) || body.includes(query)) {
+              found = true;
+              postElement.style.display = "block"; // Mostrar el post
+
+              // Obtener la oración relevante donde aparece la palabra clave
+              showRelevantSentence(postElement, query);
+
+              // Mostrar el título encima de la oración
+              const postTitleElement = post.querySelector(".post-title");
+              if (postTitleElement && postTitleElement instanceof HTMLElement) {
+                postTitleElement.innerText = title; // Mostrar el título tal como está, respetando las mayúsculas
+              }
+            } else {
+              postElement.style.display = "none"; // Ocultar el post si no hay coincidencia
+            }
+          });
+
+          // Mostrar la lista de posts si se encontraron resultados
+          postList.style.display = found ? "block" : "none";
+
+          // Mostrar el mensaje de "No se encontraron resultados" si no hay coincidencias
+          noResults.style.display = found ? "none" : "block";
+        });
+
+        // Función para mostrar solo la oración relevante que contiene la palabra clave
+        function showRelevantSentence(post: HTMLElement, query: string) {
+          const bodyText = post.dataset.body || "";
+          const sentences = bodyText.split('.'); // Dividir el texto en oraciones
+
+          // Filtrar las oraciones que contienen la palabra de búsqueda
+          const relevantSentence = sentences.find((sentence) =>
+            sentence.toLowerCase().includes(query)
+          );
+
+          const postPreviewElement = post.querySelector(".post-preview");
+
+          if (relevantSentence && postPreviewElement && postPreviewElement instanceof HTMLElement) {
+            // Mostrar solo la oración relevante y resaltar la palabra clave
+            postPreviewElement.innerHTML = relevantSentence.trim() + ".";
+            highlightText(postPreviewElement, query);
+          }
+        }
+
+        // Función para resaltar las coincidencias
+        function highlightText(post: HTMLElement, query: string) {
+          const originalText = post.innerHTML;
+          const highlightedText = originalText.replace(
+            new RegExp(`(${query})`, "gi"),
+            (match) => `<mark>${match}</mark>` // Resalta las coincidencias
+          );
+          post.innerHTML = highlightedText;  // Reemplazar el texto con el resaltado
+        }
+      });
+    </script>
+  </section>
+</Base>
+
+
+
+
+
+
+
+
+
+
