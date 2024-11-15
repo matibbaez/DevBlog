@@ -1,11 +1,11 @@
 export default {
-    title: "Homepage",
+    title: "Inicio",
     titleSuffix: " | devblog",
-    description: "Aromatic brew, pure indulgence, exquisite satisfaction.Default description",
-    defaultOgImage: "./defaultog.jpg",
+    description: "Un blog de desarrollo donde comparto artículos, tutoriales y recursos sobre programación y tecnología.",
+    defaultOgImage: "./devblog.png",
     latestPosts: 3,
     postsPerPage: 3,
-    url: "https://devblog-astro-6y7xr.kinsta.page",
+    url: "https://dev-blog-matidev.vercel.app/",
     social: {
         'dribbble': false,
         'facebook': false,

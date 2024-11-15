@@ -6,7 +6,7 @@
       "pageBundle": false,
       "previewPath": "blog/",
       "filePrefix": null,
-      "fileType": "mdx",
+      "fileType": "md",
       "fields": [
         {
           "title": "Title",
