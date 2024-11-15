@@ -1,16 +1,14 @@
 ---
 import { Image } from 'astro:assets'
 
-import logoImage from '../../assets/devlogo.jpg';
-
-import slide1 from '../../assets/slide-1.jpg';
-import slide2 from '../../assets/slide-2.jpg';
-import slide3 from '../../assets/slide-3.jpg';
-import slide4 from '../../assets/slide-4.jpg';
-import slide5 from '../../assets/slide-5.jpg';
+import slide1 from '../../assets/slide-final1.jpg';
+import slide2 from '../../assets/slide-final2.jpg';
+import slide3 from '../../assets/slide-final3.jpg';
+import slide4 from '../../assets/slide-final4.jpg';
+import slide5 from '../../assets/slide-final5.jpg';
 ---
 <section class="
-        container mx-auto max-w-screen-xl px-7 py-10
+        container mx-auto max-w-screen-xl px-7 pt-0
         lg:min-h-[500px] content-center font-devblog
         prose lg:prose-xl
         prose-headings:font-devblog-space prose-headings:mt-5 prose-headings:text-devblog-dark prose-headings:font-bold lg:prose-h1:text-7xl prose-h1:mt-0 prose-heading:transition-all prose-heading:duration-300  
@@ -31,7 +29,7 @@ import slide5 from '../../assets/slide-5.jpg';
         <Image src={slide1} width={800} alt="" class="object-cover image-shine h-[200px] md:h-[500px]" />
     </div>
     <div class="relative w-44 flex-none overflow-hidden bg-white dark:bg-devblog-dark sm:w-3/12 -rotate-2 rounded-[15px]">
-        <Image src={slide2} width={800} alt="" class="object-cover image-shine h-[200px] md:h-[500px]" />
+        <Image src={slide5} width={800} alt="" class="object-cover image-shine h-[200px] md:h-[500px]" />
     </div>
     <div class="relative w-44 flex-none overflow-hidden bg-white dark:bg-devblog-dark sm:w-3/12 rotate-2 rounded-[15px]">
         <Image src={slide3} width={800} alt="" class="object-cover image-shine h-[200px] md:h-[500px]" />
@@ -40,6 +38,6 @@ import slide5 from '../../assets/slide-5.jpg';
         <Image src={slide4} width={800} alt="" class="object-cover image-shine h-[200px] md:h-[500px]" />
     </div>
     <div class="relative w-44 flex-none overflow-hidden bg-white dark:bg-devblog-dark sm:w-3/12 -rotate-2 rounded-[15px]">
-        <Image src={slide5} width={800} alt="" class="object-cover image-shine h-[200px] md:h-[500px]" />
+        <Image src={slide2} width={800} alt="" class="object-cover image-shine h-[200px] md:h-[500px]" />
     </div>
 </section>
